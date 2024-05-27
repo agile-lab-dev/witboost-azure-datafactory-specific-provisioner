@@ -1,0 +1,10 @@
+spring:
+  application:
+    name: azure-datafactory
+
+server:
+  port: 8888
+
+springdoc:
+  swagger-ui:
+    path: /docs
