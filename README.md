@@ -167,7 +167,18 @@ SwaggerUI is configured and hosted on the path `/docs`. You can access it [here]
 
 ## Configuring
 
-TODO
+Application configuration is handled using the features provided by Spring Boot. You can find the default settings in the `application.yml`. Customize it and use the `spring.config.location` system property or the other options provided by the framework according to your needs.
+
+### Authentication
+
+By default, Microsoft Entra ID token authentication depends on correct configuration of the following environment variables.
+
+- `AZURE_CLIENT_ID` for Azure client ID.
+- `AZURE_TENANT_ID` for Azure tenant ID.
+- `AZURE_CLIENT_SECRET` or `AZURE_CLIENT_CERTIFICATE_PATH` for client secret or client certificate.
+- `AZURE_SUBSCRIPTION_ID` for Azure subscription ID.
+
+To link a GIT repository with a Data Factory instance, a `Custom Role` with permission `Microsoft.DataFactory/locations/configureFactoryRepo/action` needs to be assigned to the configured service principal.
 
 ## Deploying
 

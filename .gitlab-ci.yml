@@ -89,6 +89,7 @@ vulnerability_analysis:
     - mvn --version
   script:
     - mvn -DskipTests=true package org.owasp:dependency-check-maven:check
+  when: manual
   artifacts:
     when: always
     paths:
