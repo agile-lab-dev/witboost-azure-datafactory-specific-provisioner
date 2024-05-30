@@ -147,5 +147,9 @@
             <groupId>com.azure</groupId>
             <artifactId>azure-identity</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.microsoft.graph</groupId>
+            <artifactId>microsoft-graph</artifactId>
+        </dependency>
     </dependencies>
 </project>

@@ -180,6 +180,18 @@ By default, Microsoft Entra ID token authentication depends on correct configura
 
 To link a GIT repository with a Data Factory instance, a `Custom Role` with permission `Microsoft.DataFactory/locations/configureFactoryRepo/action` needs to be assigned to the configured service principal.
 
+### Principal Mapping
+
+A service principal is required to authenticate against Microsoft Graph API. The following permissions are required for the service principal:
+- `User.Read.All`
+- `GroupMember.Read.All`
+
+| Configuration      | Description   | 
+|:-------------------|:--------------|
+| graph.tenantId     | Tenant ID     |
+| graph.clientId     | Client ID     | 
+| graph.clientSecret | Client Secret | 
+
 ## Deploying
 
 This microservice is meant to be deployed to a Kubernetes cluster with the included Helm chart and the scripts that can be found in the `helm` subdirectory. You can find more details [here](helm/README.md).
