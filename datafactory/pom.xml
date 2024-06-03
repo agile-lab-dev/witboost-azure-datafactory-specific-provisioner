@@ -151,5 +151,13 @@
             <groupId>com.microsoft.graph</groupId>
             <artifactId>microsoft-graph</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.azure.resourcemanager</groupId>
+            <artifactId>azure-resourcemanager-authorization</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.azure.resourcemanager</groupId>
+            <artifactId>azure-resourcemanager</artifactId>
+        </dependency>
     </dependencies>
 </project>

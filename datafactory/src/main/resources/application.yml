@@ -13,3 +13,6 @@ graph:
   tenantId: ${GRAPH_TENANT_ID}
   clientId: ${GRAPH_CLIENT_ID}
   clientSecret: ${GRAPH_CLIENT_SECRET}
+
+permission:
+  customRoleDefinitionId: ""

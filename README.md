@@ -178,6 +178,10 @@ By default, Microsoft Entra ID token authentication depends on correct configura
 - `AZURE_CLIENT_SECRET` or `AZURE_CLIENT_CERTIFICATE_PATH` for client secret or client certificate.
 - `AZURE_SUBSCRIPTION_ID` for Azure subscription ID.
 
+The configured Service Principal needs the following role assignments:
+- `Data Factory Contributor`: to create and manage data factories, as well as child resources within them
+- `Role Based Access Control Administrator`: to manage access to Azure resources by assigning roles using Azure RBAC
+
 To link a GIT repository with a Data Factory instance, a `Custom Role` with permission `Microsoft.DataFactory/locations/configureFactoryRepo/action` needs to be assigned to the configured service principal.
 
 ### Principal Mapping
@@ -191,6 +195,16 @@ A service principal is required to authenticate against Microsoft Graph API. The
 | graph.tenantId     | Tenant ID     |
 | graph.clientId     | Client ID     | 
 | graph.clientSecret | Client Secret | 
+
+### Permissions
+
+For the users to be able to test connection in a linked service or preview data in a dataset, a `Custom Role` is required with permissions for the following actions:
+- `Microsoft.DataFactory/factories/getFeatureValue/read`
+- `Microsoft.DataFactory/factories/getDataPlaneAccess/action`
+
+| Configuration                     | Description                                          | 
+|:----------------------------------|:-----------------------------------------------------|
+| permission.customRoleDefinitionId | The definition ID of the Custom Role described above |
 
 ## Deploying
 
