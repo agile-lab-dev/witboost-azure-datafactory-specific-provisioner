@@ -159,5 +159,11 @@
             <groupId>com.azure.resourcemanager</groupId>
             <artifactId>azure-resourcemanager</artifactId>
         </dependency>
+
+        <dependency>
+            <groupId>it.agilelab.witboost</groupId>
+            <artifactId>jPowerShell</artifactId>
+            <version>${env.PROVISIONER_VERSION}</version>
+        </dependency>
     </dependencies>
 </project>

@@ -15,6 +15,7 @@
     <modules>
         <module>datafactory</module>
         <module>report</module>
+        <module>jPowerShell</module>
     </modules>
 
     <packaging>pom</packaging>

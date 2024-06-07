@@ -16,3 +16,8 @@ graph:
 
 permission:
   customRoleDefinitionId: ""
+
+powershell:
+  waitPause: 10
+  maxWait: 50000
+  tempFolder: "/tmp"
