@@ -21,3 +21,8 @@ powershell:
   waitPause: 10
   maxWait: 50000
   tempFolder: "/tmp"
+
+git:
+  azureDevOps:
+    username: ${GIT_AZURE_USERNAME}
+    password: ${GIT_AZURE_PASSWORD}

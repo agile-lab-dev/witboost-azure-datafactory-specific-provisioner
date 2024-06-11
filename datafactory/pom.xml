@@ -165,5 +165,11 @@
             <artifactId>jPowerShell</artifactId>
             <version>${env.PROVISIONER_VERSION}</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.eclipse.jgit</groupId>
+            <artifactId>org.eclipse.jgit</artifactId>
+        </dependency>
+
     </dependencies>
 </project>

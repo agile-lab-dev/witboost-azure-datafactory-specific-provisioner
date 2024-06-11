@@ -214,6 +214,13 @@ For the users to be able to test connection in a linked service or preview data 
 | powershell.maxWait    | The maximum wait in ms for the command to execute          | 
 | powershell.tempFolder | Temp folder used to store temporary the scripts to execute |
 
+### Git
+
+| Configuration            | Description  | 
+|:-------------------------|:-------------|
+| git.azureDevOps.username | GIT Username |
+| git.azureDevOps.password | GIT Password |
+
 ## Deploying
 
 This microservice is meant to be deployed to a Kubernetes cluster with the included Helm chart and the scripts that can be found in the `helm` subdirectory. You can find more details [here](helm/README.md).
