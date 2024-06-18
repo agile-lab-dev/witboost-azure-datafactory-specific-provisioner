@@ -1,5 +1,12 @@
 package it.agilelab.witboost.datafactory.service.validation;
 
+import static io.vavr.control.Either.left;
+import static io.vavr.control.Either.right;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.when;
+
 import it.agilelab.witboost.datafactory.common.FailedOperation;
 import it.agilelab.witboost.datafactory.common.Problem;
 import it.agilelab.witboost.datafactory.openapi.model.DescriptorKind;
@@ -7,24 +14,50 @@ import it.agilelab.witboost.datafactory.openapi.model.ProvisioningRequest;
 import it.agilelab.witboost.datafactory.util.ResourceUtils;
 import java.io.IOException;
 import java.util.Collections;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+@ExtendWith(MockitoExtension.class)
 public class ValidationServiceTest {
 
-    private final ValidationService service = new ValidationServiceImpl();
+    @Mock
+    private WorkloadValidation workloadValidation;
+
+    @InjectMocks
+    private ValidationServiceImpl service;
 
     @Test
-    public void testValidateWorkloadFailureToImplement() throws IOException {
+    public void testValidateWorkloadOk() throws IOException {
         String ymlDescriptor = ResourceUtils.getContentFromResource("/pr_descriptor_workload.yml");
         ProvisioningRequest provisioningRequest =
                 new ProvisioningRequest(DescriptorKind.COMPONENT_DESCRIPTOR, ymlDescriptor, false);
-        var failedOperation = new FailedOperation(Collections.singletonList(
-                new Problem("Implement the validation for workload based on your requirements!")));
+        when(workloadValidation.validate(any())).thenReturn(right(null));
 
-        var actualResult = service.validate(provisioningRequest);
+        var actualRes = service.validate(provisioningRequest);
 
-        Assertions.assertEquals(failedOperation, actualResult.getLeft());
+        assertTrue(actualRes.isRight());
+    }
+
+    @Test
+    public void testValidateWorkloadKo() throws IOException {
+        String ymlDescriptor = ResourceUtils.getContentFromResource("/pr_descriptor_workload.yml");
+        ProvisioningRequest provisioningRequest =
+                new ProvisioningRequest(DescriptorKind.COMPONENT_DESCRIPTOR, ymlDescriptor, false);
+        String expectedDesc = "Error";
+        var fail = new FailedOperation(Collections.singletonList(new Problem(expectedDesc)));
+        when(workloadValidation.validate(any())).thenReturn(left(fail));
+
+        var actualRes = service.validate(provisioningRequest);
+
+        assertTrue(actualRes.isLeft());
+        assertEquals(1, actualRes.getLeft().problems().size());
+        actualRes.getLeft().problems().forEach(p -> {
+            assertEquals(expectedDesc, p.description());
+            assertTrue(p.cause().isEmpty());
+        });
     }
 
     @Test
@@ -37,11 +70,11 @@ public class ValidationServiceTest {
 
         var actualResult = service.validate(provisioningRequest);
 
-        Assertions.assertTrue(actualResult.isLeft());
-        Assertions.assertEquals(1, actualResult.getLeft().problems().size());
+        assertTrue(actualResult.isLeft());
+        assertEquals(1, actualResult.getLeft().problems().size());
         actualResult.getLeft().problems().forEach(p -> {
-            Assertions.assertEquals(expectedDesc, p.description());
-            Assertions.assertTrue(p.cause().isEmpty());
+            assertEquals(expectedDesc, p.description());
+            assertTrue(p.cause().isEmpty());
         });
     }
 
@@ -54,11 +87,11 @@ public class ValidationServiceTest {
 
         var actualRes = service.validate(provisioningRequest);
 
-        Assertions.assertTrue(actualRes.isLeft());
-        Assertions.assertEquals(1, actualRes.getLeft().problems().size());
+        assertTrue(actualRes.isLeft());
+        assertEquals(1, actualRes.getLeft().problems().size());
         actualRes.getLeft().problems().forEach(p -> {
-            Assertions.assertTrue(p.description().startsWith(expectedDesc));
-            Assertions.assertTrue(p.cause().isPresent());
+            assertTrue(p.description().startsWith(expectedDesc));
+            assertTrue(p.cause().isPresent());
         });
     }
 
@@ -72,11 +105,11 @@ public class ValidationServiceTest {
 
         var actualRes = service.validate(provisioningRequest);
 
-        Assertions.assertTrue(actualRes.isLeft());
-        Assertions.assertEquals(1, actualRes.getLeft().problems().size());
+        assertTrue(actualRes.isLeft());
+        assertEquals(1, actualRes.getLeft().problems().size());
         actualRes.getLeft().problems().forEach(p -> {
-            Assertions.assertEquals(expectedDesc, p.description());
-            Assertions.assertTrue(p.cause().isEmpty());
+            assertEquals(expectedDesc, p.description());
+            assertTrue(p.cause().isEmpty());
         });
     }
 
@@ -90,11 +123,11 @@ public class ValidationServiceTest {
 
         var actualResult = service.validate(provisioningRequest);
 
-        Assertions.assertTrue(actualResult.isLeft());
-        Assertions.assertEquals(1, actualResult.getLeft().problems().size());
+        assertTrue(actualResult.isLeft());
+        assertEquals(1, actualResult.getLeft().problems().size());
         actualResult.getLeft().problems().forEach(p -> {
-            Assertions.assertEquals(expectedDesc, p.description());
-            Assertions.assertTrue(p.cause().isEmpty());
+            assertEquals(expectedDesc, p.description());
+            assertTrue(p.cause().isEmpty());
         });
     }
 
@@ -108,11 +141,11 @@ public class ValidationServiceTest {
 
         var actualRes = service.validate(provisioningRequest);
 
-        Assertions.assertTrue(actualRes.isLeft());
-        Assertions.assertEquals(1, actualRes.getLeft().problems().size());
+        assertTrue(actualRes.isLeft());
+        assertEquals(1, actualRes.getLeft().problems().size());
         actualRes.getLeft().problems().forEach(p -> {
-            Assertions.assertEquals(expectedDesc, p.description());
-            Assertions.assertTrue(p.cause().isEmpty());
+            assertEquals(expectedDesc, p.description());
+            assertTrue(p.cause().isEmpty());
         });
     }
 
@@ -126,11 +159,11 @@ public class ValidationServiceTest {
 
         var actualRes = service.validate(provisioningRequest);
 
-        Assertions.assertTrue(actualRes.isLeft());
-        Assertions.assertEquals(1, actualRes.getLeft().problems().size());
+        assertTrue(actualRes.isLeft());
+        assertEquals(1, actualRes.getLeft().problems().size());
         actualRes.getLeft().problems().forEach(p -> {
-            Assertions.assertEquals(expectedDesc, p.description());
-            Assertions.assertTrue(p.cause().isEmpty());
+            assertEquals(expectedDesc, p.description());
+            assertTrue(p.cause().isEmpty());
         });
     }
 }

@@ -9,6 +9,7 @@ import it.agilelab.witboost.datafactory.common.Problem;
 import it.agilelab.witboost.datafactory.model.Component;
 import it.agilelab.witboost.datafactory.model.ProvisionRequest;
 import it.agilelab.witboost.datafactory.model.Specific;
+import it.agilelab.witboost.datafactory.model.WorkloadSpecific;
 import it.agilelab.witboost.datafactory.openapi.model.DescriptorKind;
 import it.agilelab.witboost.datafactory.openapi.model.ProvisioningRequest;
 import it.agilelab.witboost.datafactory.parser.Parser;
@@ -26,8 +27,14 @@ public class ValidationServiceImpl implements ValidationService {
 
     private final String WORKLOAD_KIND = "workload";
     private static final Logger logger = LoggerFactory.getLogger(ValidationServiceImpl.class);
-    private final Map<String, Class<? extends Specific>> kindToSpecificClass =
-            Map.of(STORAGE_KIND, Specific.class, OUTPUTPORT_KIND, Specific.class, WORKLOAD_KIND, Specific.class);
+    private final Map<String, Class<? extends Specific>> kindToSpecificClass = Map.of(
+            STORAGE_KIND, Specific.class, OUTPUTPORT_KIND, Specific.class, WORKLOAD_KIND, WorkloadSpecific.class);
+
+    private final WorkloadValidation workloadValidation;
+
+    public ValidationServiceImpl(WorkloadValidation workloadValidation) {
+        this.workloadValidation = workloadValidation;
+    }
 
     @Override
     public Either<FailedOperation, ProvisionRequest<? extends Specific>> validate(
@@ -78,8 +85,8 @@ public class ValidationServiceImpl implements ValidationService {
                 var eitherWorkloadToProvision = Parser.parseComponent(componentToProvisionAsJson, workloadClass);
                 if (eitherWorkloadToProvision.isLeft()) return left(eitherWorkloadToProvision.getLeft());
                 componentToProvision = eitherWorkloadToProvision.get();
-                var workloadValidation = WorkloadValidation.validate(descriptor.getDataProduct(), componentToProvision);
-                if (workloadValidation.isLeft()) return left(workloadValidation.getLeft());
+                var eitherWorkloadValidation = workloadValidation.validate(componentToProvision);
+                if (eitherWorkloadValidation.isLeft()) return left(eitherWorkloadValidation.getLeft());
                 break;
             default:
                 String errorMessage = String.format(

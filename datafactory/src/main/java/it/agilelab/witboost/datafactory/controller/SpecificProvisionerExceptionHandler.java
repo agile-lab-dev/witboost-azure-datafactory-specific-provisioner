@@ -2,8 +2,8 @@ package it.agilelab.witboost.datafactory.controller;
 
 import it.agilelab.witboost.datafactory.common.Problem;
 import it.agilelab.witboost.datafactory.common.SpecificProvisionerValidationException;
-import it.agilelab.witboost.datafactory.openapi.model.RequestValidationError;
-import it.agilelab.witboost.datafactory.openapi.model.SystemError;
+import it.agilelab.witboost.datafactory.openapi.model.*;
+import jakarta.validation.ConstraintViolationException;
 import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,5 +41,18 @@ public class SpecificProvisionerExceptionHandler {
                 ex.getMessage());
         logger.error(errorMessage, ex);
         return new SystemError(errorMessage);
+    }
+
+    @ExceptionHandler({ConstraintViolationException.class})
+    @ResponseStatus(HttpStatus.OK)
+    protected ValidationResult handleValidationException(ConstraintViolationException ex) {
+        logger.error("Validation error", ex);
+        ValidationResult validationResult = new ValidationResult(false);
+        var problems = ex.getConstraintViolations().stream()
+                .map(constraintViolation -> String.format(
+                        "%s %s", constraintViolation.getPropertyPath().toString(), constraintViolation.getMessage()))
+                .toList();
+        validationResult.setError(new ValidationError(problems));
+        return validationResult;
     }
 }

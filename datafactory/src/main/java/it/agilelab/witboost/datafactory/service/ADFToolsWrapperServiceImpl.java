@@ -36,7 +36,7 @@ public class ADFToolsWrapperServiceImpl implements ADFToolsWrapperService {
     @Override
     public Either<FailedOperation, Void> validate(String repositoryPath) {
         try (var ps = createPS();
-                var reader = new BufferedReader(new FileReader(validateScript.getFile()))) {
+                var reader = new BufferedReader(new InputStreamReader(validateScript.getInputStream()))) {
             String params = String.format("-RootFolder \"%s\"", repositoryPath);
             var psResponse = ps.executeScript(reader, params);
             if (psResponse.isError()) {
@@ -74,7 +74,7 @@ public class ADFToolsWrapperServiceImpl implements ADFToolsWrapperService {
             String environment,
             boolean isDevEnvironment) {
         try (var ps = createPS();
-                var reader = new BufferedReader(new FileReader(publishScript.getFile()))) {
+                var reader = new BufferedReader(new InputStreamReader(publishScript.getInputStream()))) {
             StringBuilder sb = new StringBuilder(String.format("-RootFolder \"%s\"", repositoryPath));
             sb.append(String.format(" -ResourceGroupName \"%s\"", resourceGroup));
             sb.append(String.format(" -DataFactoryName \"%s\"", dataFactoryName));
