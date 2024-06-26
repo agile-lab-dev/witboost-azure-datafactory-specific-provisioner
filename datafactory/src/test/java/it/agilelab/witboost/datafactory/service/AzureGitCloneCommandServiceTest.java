@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 
 public class AzureGitCloneCommandServiceTest {
 
-    private final AzureGitConfig azureGitConfig = new AzureGitConfig("username", "password");
+    private final AzureGitConfig azureGitConfig = new AzureGitConfig("username", "password", "", "", "", "", "", true);
 
     private final AzureGitCloneCommandService service = new AzureGitCloneCommandService(azureGitConfig);
 

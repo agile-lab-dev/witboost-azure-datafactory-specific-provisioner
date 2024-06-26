@@ -3,7 +3,7 @@ kind: ConfigMap
 metadata:
   labels:
   {{- include "datafactory.labels" . | nindent 4 }}
-name: {{ template "datafactory.fullname" . }}-config
+  name: {{ template "datafactory.fullname" . }}-config
 data:
   application.yml: |
   {{- if .Values.configOverride -}}

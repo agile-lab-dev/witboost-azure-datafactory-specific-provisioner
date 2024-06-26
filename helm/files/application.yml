@@ -26,3 +26,12 @@ git:
   azureDevOps:
     username: ${GIT_AZURE_USERNAME}
     password: ${GIT_AZURE_PASSWORD}
+    accountName: ""
+    collaborationBranch: ""
+    rootFolder: ""
+    lastCommitId: ""
+    tenantId: ""
+    disablePublish: true
+
+misc:
+  developmentEnvironmentName: ""

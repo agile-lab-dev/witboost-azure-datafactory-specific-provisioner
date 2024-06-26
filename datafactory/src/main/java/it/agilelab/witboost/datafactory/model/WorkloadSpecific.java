@@ -13,5 +13,17 @@ import lombok.Setter;
 public class WorkloadSpecific extends Specific {
 
     @NotBlank
-    String gitRepo;
+    private String gitRepo;
+
+    @NotBlank
+    private String projectName;
+
+    @NotBlank
+    private String repositoryName;
+
+    @NotBlank
+    private String resourceGroup;
+
+    @NotBlank
+    private String region;
 }

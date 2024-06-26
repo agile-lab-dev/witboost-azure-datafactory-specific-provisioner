@@ -24,12 +24,12 @@ A Helm chart for Kubernetes
 | dockerRegistrySecretName | string | `"regcred"` | Docker Registry Secret name used to access a private repo |
 | extraEnvVars | list | `[]` | define extra variables to add to the container(s) e.g: extraEnvVars:   - name: FOO     value: "10" |
 | image.pullPolicy | string | `"Always"` | The imagePullPolicy for a container and the tag of the image affect when the kubelet attempts to pull (download) the specified image. |
-| image.registry | string | `"registry.gitlab.com/agilefactory/witboost.mesh/provisioning/witboost.mesh.provisioning.azuredatafactory"` | Image repository |
+| image.registry | string | `"registry.gitlab.com/agilefactory/witboost.mesh/provisioning/azure/witboost.mesh.provisioning.azuredatafactory"` | Image repository |
 | image.tag | string | `"to-be-replaced"` | Image tag |
 | labels | object | `{}` | Allows you to specify common labels |
-| livenessProbe | object | `{}` | liveness probe spec |
+| livenessProbe | object | `{"httpGet":{"path":"/actuator/health/liveness","port":8888}}` | liveness probe spec |
 | otel | object | `{"collectorUrl":"http://localhost:5555","enabled":"false","metricExporter":"otlp","serviceName":"azure-datafactory","tracesExporter":"otlp"}` | otel configuration |
-| readinessProbe | object | `{}` | readiness probe spec |
+| readinessProbe | object | `{"httpGet":{"path":"/actuator/health/readiness","port":8888}}` | readiness probe spec |
 | resources | object | `{}` | resources spec |
 | securityContext | object | `{"allowPrivilegeEscalation":false,"runAsNonRoot":true,"runAsUser":1001}` | security context spec |
 

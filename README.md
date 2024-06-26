@@ -216,10 +216,22 @@ For the users to be able to test connection in a linked service or preview data 
 
 ### Git
 
-| Configuration            | Description  | 
-|:-------------------------|:-------------|
-| git.azureDevOps.username | GIT Username |
-| git.azureDevOps.password | GIT Password |
+| Configuration                       | Description                                                               | 
+|:------------------------------------|:--------------------------------------------------------------------------|
+| git.azureDevOps.username            | GIT Username                                                              |
+| git.azureDevOps.password            | GIT Password                                                              |
+| git.azureDevOps.accountName         | VSTS account name                                                         |
+| git.azureDevOps.collaborationBranch | Collaboration branch                                                      |
+| git.azureDevOps.rootFolder          | Root folder                                                               |
+| git.azureDevOps.lastCommitId        | Last commit ID                                                            |
+| git.azureDevOps.tenantId            | VSTS Tenant ID                                                            |
+| git.azureDevOps.disablePublish      | Disable manual publish operation in ADF Studio to favor automated publish |
+
+### Misc
+
+| Configuration                   | Description                                                | 
+|:--------------------------------|:-----------------------------------------------------------|
+| misc.developmentEnvironmentName | Name of the development environment as defined in Witboost |
 
 ## Deploying
 
